@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.cloudwalk.audiodummy;
+package com.audiodummy;
 
 import android.Manifest;
 import android.annotation.SuppressLint;
@@ -85,22 +85,8 @@ public class AudioRecordActivity extends AppCompatActivity {
 
 
         AudioManager audioManager = (AudioManager) this.getSystemService(Context.AUDIO_SERVICE);
+        // setSpeakerphoneOn设置为true时  在盒子上运行一会后会报错
         audioManager.setSpeakerphoneOn(true);
-
-//        boolean isSpeakerphoneOn = audioManager.isSpeakerphoneOn();
-//        if (!isSpeakerphoneOn)
-//        {
-//            audioManager.abandonAudioFocus(null);
-//            audioManager.setMode(AudioManager.MODE_NORMAL);
-//            audioManager.setSpeakerphoneOn(false);
-//        }
-//        else
-//        {
-//            audioManager.requestAudioFocus(null, AudioManager.STREAM_VOICE_CALL, AudioManager.AUDIOFOCUS_GAIN);
-//            audioManager.setMode(AudioManager.MODE_IN_COMMUNICATION);
-//            audioManager.setSpeakerphoneOn(true);
-//        }
-
 
         startButton = (Button) findViewById(R.id.btnStart);
         startButton.setOnClickListener(new View.OnClickListener() {
@@ -181,7 +167,10 @@ public class AudioRecordActivity extends AppCompatActivity {
         @Override
         public void run() {
             final File folder = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS).getAbsolutePath()
-                    + "/cloudwalk");
+                    + "/audio");
+            if (!folder.exists()) {
+                folder.mkdirs();
+            }
             File file = null;
             try {
                 file = File.createTempFile("recording_", ".pcm", folder);
