@@ -4,6 +4,11 @@
 ### 2 点击“开始”按钮，开始录音
 ### 3 点击“结束”按钮，结束录音
 ### 4 打开文件管理器，在Download/audio找到录制的音频文件（pcm格式）
+```
+    // 文件存储目录
+    final File folder = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS).getAbsolutePath()
+                    + "/audio");
+```
 
 ## 问题描述
 
